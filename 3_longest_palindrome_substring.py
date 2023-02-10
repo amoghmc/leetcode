@@ -17,8 +17,10 @@ Constraints:
 	1 <= s.length <= 1000
 	s consist of only digits and English letters.
 
+https://leetcode.com/problems/longest-palindromic-substring/
 """
 import unittest
+
 
 class Solution:
 	def longestPalindrome_dp(self, s: str) -> str:
@@ -74,7 +76,6 @@ class Solution:
 			return True
 
 		return False
-
 
 
 class TestSolution(unittest.TestCase):
