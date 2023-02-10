@@ -38,10 +38,10 @@ from typing import List
 
 class Solution:
 	def maxArea(self, height: List[int]) -> int:
-		left = 0
-		for
+		# todo
 
-		return 49
+
+		return result
 
 
 class TestSolution(unittest.TestCase):
