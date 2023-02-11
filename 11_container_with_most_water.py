@@ -65,6 +65,7 @@ class Solution:
 
 		return max_area
 
+
 class TestSolution(unittest.TestCase):
 	def tests(self):
 		sol_class = Solution()
