@@ -37,21 +37,38 @@ from typing import List
 
 
 class Solution:
+	def maxArea_bf(self, height: List[int]) -> int:
+		max_area = 0
+		size = len(height)
+
+		for i in range(size):
+			for j in range(i + 1, size):
+				area = min(height[i], height[j]) * (j - i)
+				if area > max_area:
+					max_area = area
+
+		return max_area
+
 	def maxArea(self, height: List[int]) -> int:
-		# todo
+		max_area = 0
 		i = 0
+		j = len(height) - 1
 
-		while i < len(height):
-			j = i
+		while i < j:
+			area = min(height[i], height[j]) * (j - i)
+			if area > max_area:
+				max_area = area
+			if height[i] <= height[j]:
+				i += 1
+			else:
+				j -= 1
 
-
-		return result
-
+		return max_area
 
 class TestSolution(unittest.TestCase):
 	def tests(self):
 		sol_class = Solution()
-		my_functions = [sol_class.maxArea]
+		my_functions = [sol_class.maxArea_bf, sol_class.maxArea]
 		for my_function in my_functions:
 			self.assertEqual(my_function([1, 8, 6, 2, 5, 4, 8, 3, 7]), 49)
 			self.assertEqual(my_function([1, 1]), 1)
