@@ -38,8 +38,43 @@ from typing import List
 
 class Solution:
 	def threeSum(self, nums: List[int]) -> List[List[int]]:
-		# todo
-		return result
+		triplets = []
+		seen_list = set()
+		x = 0
+		while x < len(nums):
+			if x not in seen_list:
+				target = - nums[x]
+				two_sum_result = self.twoSum(nums, target)
+				if two_sum_result != -1:
+					check = False
+					for k in two_sum_result:
+						if k == x:
+							check = True
+					if not check:
+						two_sum_result.append(x)
+						for i in range(len(two_sum_result)):
+							seen_list.add(two_sum_result[i])
+							two_sum_result[i] = nums[two_sum_result[i]]
+							two_sum_result.sort()
+						triplets.append(two_sum_result)
+			x += 1
+		return triplets
+
+	def twoSum(self, nums, target):
+		"""
+		:type nums: List[int]
+		:type target: int
+		:rtype: List[int]
+		"""
+		hashmap = {}
+		for i in range(len(nums)):
+			hashmap[nums[i]] = i
+
+		for i in range(len(nums)):
+			complement = target - nums[i]
+			if complement in hashmap and hashmap[complement] != i:
+				return [i, hashmap[complement]]
+		return -1
 
 
 class TestSolution(unittest.TestCase):
@@ -47,10 +82,10 @@ class TestSolution(unittest.TestCase):
 		sol_class = Solution()
 		my_functions = [sol_class.threeSum]
 		for my_function in my_functions:
-			self.assertEqual(my_function([-1,0,1,2,-1,-4]), [[-1,-1,2],[-1,0,1]])
-			self.assertEqual(my_function([0,1,1]), [])
-			self.assertEqual(my_function([0,0,0]), [[0,0,0]])
+			self.assertEqual(my_function([-1, 0, 1, 2, -1, -4]), [[-1, 0, 1], [-1, -1, 2]])
+			self.assertEqual(my_function([-1, 1, 0]), [[-1, 0, 1]])
+			self.assertEqual(my_function([0, 1, 1]), [])
+			self.assertEqual(my_function([0, 0, 0]), [[0, 0, 0]])
 
-
-if __name__ == '__main__':
-	unittest.main()
+			if __name__ == '__main__':
+				unittest.main()
