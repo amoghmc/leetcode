@@ -43,12 +43,14 @@ class Solution:
 		"""
 		hashmap = {}
 		for i in range(len(nums)):
-			hashmap[nums[i]] = i
+			value = nums[i]
+			hashmap[value] = i
 
 		for i in range(len(nums)):
 			complement = target - nums[i]
-			if complement in hashmap and hashmap[complement] != i:
-				return [i, hashmap[complement]]
+			j = hashmap[complement]
+			if complement in hashmap and j != i:
+				return [i, j]
 
 
 class TestSolution(unittest.TestCase):

@@ -36,45 +36,41 @@ import unittest
 from typing import List
 
 
-class Solution:
-	def threeSum(self, nums: List[int]) -> List[List[int]]:
-		triplets = []
-		seen_list = set()
-		x = 0
-		while x < len(nums):
-			if x not in seen_list:
-				target = - nums[x]
-				two_sum_result = self.twoSum(nums, target)
-				if two_sum_result != -1:
-					check = False
-					for k in two_sum_result:
-						if k == x:
-							check = True
-					if not check:
-						two_sum_result.append(x)
-						for i in range(len(two_sum_result)):
-							seen_list.add(two_sum_result[i])
-							two_sum_result[i] = nums[two_sum_result[i]]
-							two_sum_result.sort()
-						triplets.append(two_sum_result)
-			x += 1
-		return triplets
-
-	def twoSum(self, nums, target):
+class Solution(object):
+	def threeSum(self, nums):
 		"""
 		:type nums: List[int]
-		:type target: int
-		:rtype: List[int]
+		:rtype: List[List[int]]
 		"""
-		hashmap = {}
-		for i in range(len(nums)):
-			hashmap[nums[i]] = i
+		nums.sort()
+		size, result = len(nums), []
+		for i in range(size):
 
-		for i in range(len(nums)):
-			complement = target - nums[i]
-			if complement in hashmap and hashmap[complement] != i:
-				return [i, hashmap[complement]]
-		return -1
+			# check if i is solved previously
+			if i > 0 and nums[i] == nums[i - 1]:
+				continue
+
+			target = - nums[i]
+			j, k = i + 1, size - 1
+			while j < k:
+				two_sum = nums[j] + nums[k]
+				if two_sum == target:
+					triplet = [nums[i], nums[j], nums[k]]
+					triplet.sort()
+					result.append(triplet)
+
+					j += 1
+					# check if j is solved previously
+					while j < k and nums[j] == nums[j - 1]:
+						j += 1
+
+				# if sum < target
+				elif two_sum < target:
+					j += 1
+				# if sum > target
+				else:
+					k -= 1
+		return result
 
 
 class TestSolution(unittest.TestCase):
@@ -82,10 +78,12 @@ class TestSolution(unittest.TestCase):
 		sol_class = Solution()
 		my_functions = [sol_class.threeSum]
 		for my_function in my_functions:
-			self.assertEqual(my_function([-1, 0, 1, 2, -1, -4]), [[-1, 0, 1], [-1, -1, 2]])
+			self.assertEqual(my_function([-1, 0, 1, 2, -1, -4]), [[-1, -1, 2], [-1, 0, 1]])
 			self.assertEqual(my_function([-1, 1, 0]), [[-1, 0, 1]])
 			self.assertEqual(my_function([0, 1, 1]), [])
 			self.assertEqual(my_function([0, 0, 0]), [[0, 0, 0]])
+			self.assertEqual(my_function([0, 0, 0, 0]), [[0, 0, 0]])
 
-			if __name__ == '__main__':
-				unittest.main()
+
+if __name__ == '__main__':
+	unittest.main()

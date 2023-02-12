@@ -22,6 +22,7 @@ import unittest
 
 
 class Solution:
+	# time complexity = O(n^2)
 	def longestPalindrome_dp(self, s: str) -> str:
 		palindrome_matrix = [[False] * len(s) for _ in range(len(s))]
 
@@ -41,6 +42,7 @@ class Solution:
 
 		return longest_palindrome
 
+	# time complexity = O(n^3)
 	def longestPalindrome_bf(self, s: str) -> str:
 		i = 0
 		max_size = 0
