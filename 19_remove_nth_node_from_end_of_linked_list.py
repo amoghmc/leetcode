@@ -48,7 +48,7 @@ class Solution:
 			head = head.next
 			return head
 
-		# if middle or last node is to be
+		# if middle or last node is to be deleted
 		i = 0
 		curr = head
 		while curr is not None:
