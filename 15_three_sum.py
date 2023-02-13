@@ -30,6 +30,7 @@ Constraints:
 	3 <= nums.length <= 3000
 	-105 <= nums[i] <= 105
 
+https://leetcode.com/problems/3sum/
 """
 
 import unittest
