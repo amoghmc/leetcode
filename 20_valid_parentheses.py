@@ -35,13 +35,13 @@ class Solution:
 		stack = []
 		paren_dict = {"]": "[", "}": "{", ")": "("}
 		for char in s:
+			# if opening parenthesis
 			if char in paren_dict.values():
 				stack.append(char)
-			elif char in paren_dict:
+			# if closing parenthesis
+			else:
 				if stack == [] or paren_dict[char] != stack.pop():
 					return False
-			else:
-				return False
 		return stack == []
 
 
