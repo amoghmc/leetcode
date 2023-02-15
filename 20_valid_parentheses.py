@@ -39,10 +39,9 @@ class Solution:
 			if char in paren_dict.values():
 				stack.append(char)
 			# if closing parenthesis
-			else:
-				if stack == [] or paren_dict[char] != stack.pop():
-					return False
-		return stack == []
+			elif len(stack) == 0 or paren_dict[char] != stack.pop():
+				return False
+		return len(stack) == 0
 
 
 class TestSolution(unittest.TestCase):
