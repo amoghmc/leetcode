@@ -27,35 +27,32 @@ Constraints:
 https://leetcode.com/problems/two-sum/
 """
 import unittest
+from typing import List
 
 
 class Solution:
-	def twoSum(self, nums, target):
-		"""
-		:type nums: List[int]
-		:type target: int
-		:rtype: List[int]
-		"""
-		hashmap = {}
-		for i in range(len(nums)):
-			value = nums[i]
-			hashmap[value] = i
+	def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
 
-		for i in range(len(nums)):
-			complement = target - nums[i]
-			j = hashmap[complement]
-			if complement in hashmap and j != i:
-				return [i, j]
+		result = []
+		result_dict = {}
+		for string in strs:
+			sorted_str = ''.join(sorted(string))
+			if sorted_str in result_dict:
+				result_dict[sorted_str].append(string)
+			else:
+				result_dict[sorted_str] = [string]
+		return list(result_dict.values())
 
 
 class TestSolution(unittest.TestCase):
 	def tests(self):
 		sol_class = Solution()
-		my_functions = [sol_class.twoSum]
+		my_functions = [sol_class.groupAnagrams]
 		for my_function in my_functions:
-			self.assertEqual(my_function([2, 7, 11, 15], 9), [0, 1])
-			self.assertEqual(my_function([3, 2, 4], 6), [1, 2])
-			self.assertEqual(my_function([3, 3], 6), [0, 1])
+			self.assertEqual(my_function(["eat", "tea", "tan", "ate", "nat", "bat"]),
+			                 [['eat', 'tea', 'ate'], ['tan', 'nat'], ['bat']])
+			self.assertEqual(my_function([""]), [[""]])
+			self.assertEqual(my_function(["a"]), [["a"]])
 
 
 if __name__ == '__main__':
