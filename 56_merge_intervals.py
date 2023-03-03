@@ -39,8 +39,6 @@ class Solution:
 				len_i = len(intervals[i])
 				len_j = len(intervals[j])
 				if intervals[i][len_i - 1] >= intervals[j][0] and intervals[i][0] <= intervals[j][len_j - 1]:
-					ith_arr = intervals[i]
-					jth_arr = intervals[j]
 					intervals[i] = [min(intervals[i][0], intervals[j][0]),
 					                max(intervals[i][len_i - 1], intervals[j][len_j - 1])]
 					intervals.pop(j)
