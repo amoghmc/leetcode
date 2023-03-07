@@ -37,41 +37,33 @@ import unittest
 from typing import List
 
 
-class Solution(object):
-	def threeSum(self, nums):
-		"""
-		:type nums: List[int]
-		:rtype: List[List[int]]
-		"""
+class Solution:
+	def threeSum(self, nums: List[int]) -> List[List[int]]:
+		res = []
 		nums.sort()
-		size, result = len(nums), []
-		for i in range(size):
+		for i in range(len(nums)):
+			if nums[i] > 0:
+				break
+			# check if not solved previously (nums is sorted)
+			if i == 0 or nums[i - 1] != nums[i]:
+				self.twoSumII(nums, i, res)
+		return res
 
-			# check if i is solved previously
-			if i > 0 and nums[i] == nums[i - 1]:
-				continue
-
-			target = - nums[i]
-			j, k = i + 1, size - 1
-			while j < k:
-				two_sum = nums[j] + nums[k]
-				if two_sum == target:
-					triplet = [nums[i], nums[j], nums[k]]
-					triplet.sort()
-					result.append(triplet)
-
-					j += 1
-					# check if j is solved previously
-					while j < k and nums[j] == nums[j - 1]:
-						j += 1
-
-				# if sum < target
-				elif two_sum < target:
-					j += 1
-				# if sum > target
-				else:
-					k -= 1
-		return result
+	def twoSumII(self, nums: List[int], i: int, res: List[List[int]]):
+		low, high = i + 1, len(nums) - 1
+		while low < high:
+			total = nums[i] + nums[low] + nums[high]
+			if total < 0:
+				low += 1
+			elif total > 0:
+				high -= 1
+			else:
+				res.append([nums[i], nums[low], nums[high]])
+				low += 1
+				high -= 1
+				# skip over repeated numbers
+				while low < high and nums[low] == nums[low - 1]:
+					low += 1
 
 
 class TestSolution(unittest.TestCase):
