@@ -51,10 +51,6 @@ class Solution(object):
 		return False
 
 	def backtrack(self, row, col, suffix):
-		"""
-			backtracking with side-effect,
-			the matched letter in the board would be marked with "#".
-		"""
 		# bottom case: we find match for each letter in the word
 		if len(suffix) == 0:
 			return True
@@ -67,15 +63,15 @@ class Solution(object):
 		self.board[row][col] = '#'
 		# explore the 4 neighbor directions
 		for rowOffset, colOffset in [(0, 1), (-1, 0), (0, -1), (1, 0)]:
-			# sudden-death return, no cleanup.
+			ret = False
 			if self.backtrack(row + rowOffset, col + colOffset, suffix[1:]):
-				return True
+				ret = True
 
 		# revert the marking
 		self.board[row][col] = suffix[0]
 
 		# Tried all directions, and did not find any match
-		return False
+		return ret
 
 
 class TestSolution(unittest.TestCase):
