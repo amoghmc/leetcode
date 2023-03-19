@@ -62,15 +62,15 @@ class Solution(object):
 		# mark the choice before exploring further.
 		self.board[row][col] = '#'
 		# explore the 4 neighbor directions
+		ret = False
 		for rowOffset, colOffset in [(0, 1), (-1, 0), (0, -1), (1, 0)]:
-			ret = False
 			if self.backtrack(row + rowOffset, col + colOffset, suffix[1:]):
 				ret = True
 
 		# revert the marking
 		self.board[row][col] = suffix[0]
 
-		# Tried all directions, and did not find any match
+		# Tried all directions, and return result
 		return ret
 
 
