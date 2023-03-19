@@ -46,11 +46,13 @@ class Solution:
 		if not p and not q:
 			return True
 		# either p or q is None but not both
-		if not q or not p:
+		elif not q or not p:
 			return False
 		# if values don't match
-		if p.val != q.val:
+		elif p.val != q.val:
 			return False
+
 		right_bool = self.isSameTree(p.right, q.right)
 		left_bool = self.isSameTree(p.left, q.left)
+
 		return right_bool and left_bool
