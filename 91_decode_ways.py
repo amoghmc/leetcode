@@ -52,18 +52,15 @@ class Solution:
 
 	@lru_cache(maxsize=None)
 	def recursiveWithMemo(self, index, s) -> int:
-		# If you reach the end of the string
+		# If you reach the end of the string or
+		# If the last char of string is between 1-9 inclusive
 		# Return 1 for success.
-		if index == len(s):
+		if index == len(s) or ((index == len(s) - 1) and s[index] != '0'):
 			return 1
 
 		# If the string starts with a zero, it can't be decoded
 		if s[index] == '0':
 			return 0
-
-		# If the last char of string is between 1-9 inclusive
-		if index == len(s) - 1:
-			return 1
 
 		answer = self.recursiveWithMemo(index + 1, s)
 		if int(s[index: index + 2]) <= 26:
