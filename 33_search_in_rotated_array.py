@@ -53,7 +53,7 @@ class Solution:
 					right_ptr = mid - 1
 			# if right sorted portion
 			else:
-				if target >= nums[left_ptr] or target < nums[mid]:
+				if target > nums[right_ptr] or target < nums[mid]:
 					right_ptr = mid - 1
 				else:
 					left_ptr = mid + 1
