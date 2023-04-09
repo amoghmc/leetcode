@@ -34,15 +34,13 @@ from typing import List
 
 class Solution:
 	def maxSubArray(self, nums: List[int]) -> int:
-		curr_sum = 0
 		max_sum = nums[0]
-		size = len(nums)
+		curr_sum = 0
 
-		for i in range(size):
-			curr_sum = max(0, curr_sum) + nums[i]
+		for num in nums:
+			curr_sum = max(num, curr_sum + num)
+			max_sum = max(curr_sum, max_sum)
 
-			if curr_sum > max_sum:
-				max_sum = curr_sum
 		return max_sum
 
 	def maxSubArray_bf(self, nums: List[int]) -> int:

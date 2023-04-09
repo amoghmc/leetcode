@@ -45,13 +45,13 @@ class Solution:
 			mid = (left_ptr + right_ptr) // 2
 			if target == nums[mid]:
 				return mid
-			# left sorted portion
+			# if left sorted portion
 			if nums[left_ptr] <= nums[mid]:
 				if target < nums[left_ptr] or target > nums[mid]:
 					left_ptr = mid + 1
 				else:
 					right_ptr = mid - 1
-			# right sorted portion
+			# if right sorted portion
 			else:
 				if target >= nums[left_ptr] or target < nums[mid]:
 					right_ptr = mid - 1
