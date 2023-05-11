@@ -48,18 +48,18 @@ class Solution:
 		"""
 		# defaults to [] if key not found
 		from collections import defaultdict
-		courseDict = defaultdict(list)
+		followCourses = defaultdict(list)
 
 		for relation in prerequisites:
 			nextCourse, prevCourse = relation[0], relation[1]
-			courseDict[prevCourse].append(nextCourse)
+			followCourses[prevCourse].append(nextCourse)
 
 		path = [False] * numCourses
 		checked = path.copy()
 
 		# check for cycle from each node
 		for currCourse in range(numCourses):
-			if self.isCyclic(currCourse, courseDict, checked, path):
+			if self.isCyclic(currCourse, followCourses, checked, path):
 				return False
 		return True
 
