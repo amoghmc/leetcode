@@ -49,11 +49,14 @@ class Solution:
 	def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
 		nodes = []
 		head = point = ListNode(0)
-		for l in lists:
-			while l:
-				nodes.append(l.val)
-				l = l.next
 
+		# get values of each list
+		for ll in lists:
+			while ll:
+				nodes.append(ll.val)
+				ll = ll.next
+
+		# sort and append them to a new linked list
 		for x in sorted(nodes):
 			point.next = ListNode(x)
 			point = point.next

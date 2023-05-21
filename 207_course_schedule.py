@@ -98,8 +98,8 @@ class TestSolution(unittest.TestCase):
 		sol_class = Solution()
 		my_functions = [sol_class.canFinish]
 		for my_function in my_functions:
-			self.assertEqual(my_function(2, [[1,0]]), True)
-			self.assertEqual(my_function(2, [[1,0],[0,1]]), False)
+			self.assertEqual(my_function(2, [[1, 0]]), True)
+			self.assertEqual(my_function(2, [[1, 0], [0, 1]]), False)
 
 
 if __name__ == '__main__':

@@ -45,6 +45,7 @@ class Solution:
 			if nums[i] > 0:
 				break
 			# check if not solved previously (nums is sorted)
+			# ie check if nums[i] is not repeated for prev i
 			if i == 0 or nums[i - 1] != nums[i]:
 				self.twoSumII(nums, i, res)
 		return res

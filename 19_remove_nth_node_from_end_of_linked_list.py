@@ -21,7 +21,6 @@ Constraints:
 	1 <= n <= sz
 https://leetcode.com/problems/remove-nth-node-from-end-of-list/description/
 """
-import unittest
 from typing import Optional
 
 
@@ -38,11 +37,10 @@ class Solution:
 		# determine node to be deleted
 		length_of_ll = 0
 		curr = head
-		while curr is not None:
+		while curr:
 			length_of_ll += 1
 			curr = curr.next
 		target = length_of_ll - n
-		print(target)
 
 		# if first node is to be deleted
 		if target == 0:
@@ -52,7 +50,7 @@ class Solution:
 		# if middle or last node is to be deleted
 		i = 0
 		curr = head
-		while curr is not None:
+		while curr:
 			if i == target - 1:
 				curr.next = curr.next.next
 			curr = curr.next

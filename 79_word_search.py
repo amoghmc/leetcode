@@ -87,7 +87,7 @@ class TestSolution(unittest.TestCase):
 				True)
 			self.assertEqual(my_function(
 				[["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]], "ABCB"),
-			    False)
+				False)
 
 
 if __name__ == '__main__':

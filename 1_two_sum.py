@@ -42,6 +42,8 @@ class Solution:
 		:rtype: List[int]
 		"""
 		hashmap = {}
+
+		# dict[value] = index
 		for i in range(len(nums)):
 			value = nums[i]
 			hashmap[value] = i
@@ -49,6 +51,8 @@ class Solution:
 		for i in range(len(nums)):
 			complement = target - nums[i]
 			index = hashmap[complement]
+			# check if it is a repeated value
+			# ex: dict[3] = 5, target = 10 and output = [3, 3] which is repeated
 			if complement in hashmap and index != i:
 				return [i, index]
 
