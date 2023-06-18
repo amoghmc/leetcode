@@ -31,7 +31,7 @@ Constraints:
 	s and wordDict[i] consist of only lowercase English letters.
 	All the strings of wordDict are unique.
 
-https://leetcode.com/problems/two-sum/
+https://leetcode.com/problems/word-break/
 """
 import unittest
 from functools import lru_cache
