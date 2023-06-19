@@ -63,41 +63,41 @@ class Trie:
 		"""
 		Inserts a word into the trie.
 		"""
-		node = self.root
+		curr = self.root
 		for char in word:
 			# if link doesn't exist, create new link with the missing char
-			if char not in node.children:
-				node.children[char] = TrieNode()
+			if char not in curr.children:
+				curr.children[char] = TrieNode()
 			# move down the link recursively
-			node = node.children[char]
-		node.is_end = True
+			curr = curr.children[char]
+		curr.is_end = True
 
 	def search(self, word: str) -> bool:
 		"""
 		Returns if the word is in the trie.
 		"""
-		node = self.root
+		curr = self.root
 		for char in word:
 			# if link doesn't exist, as word(link) doesn't exist
-			if char not in node.children:
+			if char not in curr.children:
 				return False
 			# move down the link recursively
-			node = node.children[char]
+			curr = curr.children[char]
 
 		# return True if word is present and not just a prefix
-		return node.is_end
+		return curr.is_end
 
 	def startsWith(self, word: str) -> bool:
 		"""
 		Returns if there is any word in the trie that starts with the given prefix.
 		"""
-		node = self.root
+		curr = self.root
 		for char in word:
 			# if link doesn't exist, as word(link) doesn't exist
-			if char not in node.children:
+			if char not in curr.children:
 				return False
 			# move down the link recursively
-			node = node.children[char]
+			curr = curr.children[char]
 
 		# prefix is present
 		return True
