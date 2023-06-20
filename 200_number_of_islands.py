@@ -39,15 +39,15 @@ from typing import List
 
 class Solution:
 	def numIslands(self, grid: List[List[str]]) -> int:
-		res = 0
+		islands = 0
 		for i in range(len(grid)):
 			for j in range(len(grid[i])):
 				if grid[i][j] == "1":
-					res += 1
-					self.helper(grid, i, j)
-		return res
+					islands += 1
+					self.dfs(grid, i, j)
+		return islands
 
-	def helper(self, grid, i, j):
+	def dfs(self, grid, i, j):
 		# if out of bounds then return
 		if i < 0 or j < 0 or i == len(grid) or j == len(grid[i]):
 			return
@@ -58,7 +58,7 @@ class Solution:
 		grid[i][j] = "0"
 
 		for row, col in [(i + 1, j), (i - 1, j), (i, j + 1), (i, j - 1)]:
-			self.helper(grid, row, col)
+			self.dfs(grid, row, col)
 
 
 class TestSolution(unittest.TestCase):
