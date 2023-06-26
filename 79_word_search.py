@@ -44,13 +44,13 @@ class Solution(object):
 
 		for row in range(self.ROWS):
 			for col in range(self.COLS):
-				if self.backtrack(row, col, word):
+				if self.dfs(row, col, word):
 					return True
 
 		# no match found after all exploration
 		return False
 
-	def backtrack(self, row, col, suffix):
+	def dfs(self, row, col, suffix):
 		# bottom case: we find match for each letter in the word
 		if len(suffix) == 0:
 			return True
@@ -59,8 +59,8 @@ class Solution(object):
 		if row < 0 or row == self.ROWS or col < 0 or col == self.COLS:
 			return False
 
-		# if mismatch return false
-		if self.board[row][col] != suffix[0]:
+		# if mismatch or cycle, return false
+		if self.board[row][col] != suffix[0] or self.board[row][col] == '#':
 			return False
 
 		# mark the choice before exploring further.
@@ -69,7 +69,7 @@ class Solution(object):
 		# explore the 4 neighbor directions
 		ret = False
 		for rowOffset, colOffset in [(0, 1), (-1, 0), (0, -1), (1, 0)]:
-			if self.backtrack(row + rowOffset, col + colOffset, suffix[1:]):
+			if self.dfs(row + rowOffset, col + colOffset, suffix[1:]):
 				ret = True
 
 		# revert the marking

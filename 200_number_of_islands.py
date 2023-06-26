@@ -51,9 +51,11 @@ class Solution:
 		# if out of bounds then return
 		if i < 0 or j < 0 or i == len(grid) or j == len(grid[i]):
 			return
+
 		# if seen or in water then return
 		if grid[i][j] == "0":
 			return
+
 		# don't forget to set the current square to 0 to not come back to it!
 		grid[i][j] = "0"
 
