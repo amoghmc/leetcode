@@ -46,58 +46,53 @@ https://leetcode.com/problems/implement-trie-prefix-tree/
 """
 
 
-class TrieNode:
-	def __init__(self):
-		self.children = {}
-		self.is_end = False
-
-
 class Trie:
 	def __init__(self):
 		"""
 		Initialize your data structure here.
 		"""
-		self.root = TrieNode()
+		self.children = {}
+		self.is_end = False
 
 	def insert(self, word: str) -> None:
 		"""
 		Inserts a word into the trie.
 		"""
-		curr = self.root
+		node = self
 		for char in word:
 			# if link doesn't exist, create new link with the missing char
-			if char not in curr.children:
-				curr.children[char] = TrieNode()
+			if char not in node.children:
+				node.children[char] = Trie()
 			# move down the link recursively
-			curr = curr.children[char]
-		curr.is_end = True
+			node = node.children[char]
+		node.is_end = True
 
 	def search(self, word: str) -> bool:
 		"""
 		Returns if the word is in the trie.
 		"""
-		curr = self.root
+		node = self
 		for char in word:
 			# if link doesn't exist, as word(link) doesn't exist
-			if char not in curr.children:
+			if char not in node.children:
 				return False
 			# move down the link recursively
-			curr = curr.children[char]
+			node = node.children[char]
 
 		# return True if word is present and not just a prefix
-		return curr.is_end
+		return node.is_end
 
 	def startsWith(self, word: str) -> bool:
 		"""
 		Returns if there is any word in the trie that starts with the given prefix.
 		"""
-		curr = self.root
+		node = self
 		for char in word:
 			# if link doesn't exist, as word(link) doesn't exist
-			if char not in curr.children:
+			if char not in node.children:
 				return False
 			# move down the link recursively
-			curr = curr.children[char]
+			node = node.children[char]
 
 		# prefix is present
 		return True

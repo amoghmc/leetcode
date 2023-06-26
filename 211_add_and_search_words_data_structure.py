@@ -46,32 +46,26 @@ https://leetcode.com/problems/design-add-and-search-words-data-structure/
 """
 
 
-class TrieNode:
-	def __init__(self):
-		self.children = {}
-		self.is_end = False
-
-
 class WordDictionary:
-
 	def __init__(self):
 		"""
 		Initialize your data structure here.
 		"""
-		self.root = TrieNode()
+		self.children = {}
+		self.is_end = False
 
 	def addWord(self, word: str) -> None:
 		"""
 		Inserts a word into the trie.
 		"""
-		curr = self.root
+		node = self
 		for char in word:
 			# if link doesn't exist, create new link with the missing char
-			if char not in curr.children:
-				curr.children[char] = TrieNode()
+			if char not in node.children:
+				node.children[char] = WordDictionary()
 			# move down the link recursively
-			curr = curr.children[char]
-		curr.is_end = True
+			node = node.children[char]
+		node.is_end = True
 
 	def search(self, word: str) -> bool:
 
@@ -90,4 +84,4 @@ class WordDictionary:
 					curr = curr.children[char]
 			return curr.is_end
 
-		return dfs(0, self.root)
+		return dfs(0, self)
