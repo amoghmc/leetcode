@@ -34,6 +34,14 @@ from typing import List
 class Solution:
 	# similar to max-weight independent set
 	def rob(self, nums: List[int]) -> int:
+		a, b = 0, 0
+
+		for i in nums:
+			a, b = b, max(a + i, b)
+
+		return b
+
+	def rob_list(self, nums: List[int]) -> int:
 		dp = [0, nums[0]]
 
 		for i in range(1, len(nums)):
@@ -45,7 +53,7 @@ class Solution:
 class TestSolution(unittest.TestCase):
 	def tests(self):
 		sol_class = Solution()
-		my_functions = [sol_class.rob]
+		my_functions = [sol_class.rob, sol_class.rob_list]
 		for my_function in my_functions:
 			self.assertEqual(my_function([4]), 4)
 			self.assertEqual(my_function([1, 2, 3, 1]), 4)
