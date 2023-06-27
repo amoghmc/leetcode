@@ -44,6 +44,7 @@ Constraints:
 
 https://leetcode.com/problems/design-add-and-search-words-data-structure/
 """
+import unittest
 
 
 class WordDictionary:
@@ -85,3 +86,19 @@ class WordDictionary:
 			return curr.is_end
 
 		return dfs(0, self)
+
+
+class TestSolution(unittest.TestCase):
+	def tests(self):
+		sol_class = WordDictionary()
+		sol_class.addWord("bad");
+		sol_class.addWord("dad");
+		sol_class.addWord("mad");
+		self.assertEqual(sol_class.search("pad"), False)
+		self.assertEqual(sol_class.search("bad"), True)
+		self.assertEqual(sol_class.search(".ad"), True)
+		self.assertEqual(sol_class.search("b.."), True)
+
+
+if __name__ == '__main__':
+	unittest.main()

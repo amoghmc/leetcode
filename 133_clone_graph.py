@@ -72,7 +72,7 @@ class Solution(object):
 		# as key and value respectively. This helps to avoid cycles.
 		self.visited = {}
 
-	def cloneGraph(self, node):
+	def cloneGraph(self, node: Node) -> Node:
 		"""
 		:type node: Node
 		:rtype: Node

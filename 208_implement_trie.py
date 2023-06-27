@@ -44,6 +44,7 @@ Constraints:
 
 https://leetcode.com/problems/implement-trie-prefix-tree/
 """
+import unittest
 
 
 class Trie:
@@ -96,3 +97,19 @@ class Trie:
 
 		# prefix is present
 		return True
+
+
+class TestSolution(unittest.TestCase):
+	def tests(self):
+		sol_class = Trie()
+		sol_class.insert("apple");
+		self.assertEqual(sol_class.search("apple"), True)
+		self.assertEqual(sol_class.search("app"), False)
+		self.assertEqual(sol_class.startsWith("app"), True)
+		self.assertEqual(sol_class.search("apple"), True)
+		sol_class.insert("app");
+		self.assertEqual(sol_class.search("app"), True)
+
+
+if __name__ == '__main__':
+	unittest.main()
