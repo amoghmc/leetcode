@@ -36,8 +36,8 @@ class Solution:
 	def rob(self, nums: List[int]) -> int:
 		dp = [0, nums[0]]
 
-		for i in range(2, len(nums) + 1):
-			dp.append(max(dp[i - 1], dp[i - 2] + nums[i - 1]))
+		for i in range(1, len(nums)):
+			dp.append(max(dp[i], dp[i - 1] + nums[i]))
 
 		return dp[len(nums)]
 
@@ -47,6 +47,7 @@ class TestSolution(unittest.TestCase):
 		sol_class = Solution()
 		my_functions = [sol_class.rob]
 		for my_function in my_functions:
+			self.assertEqual(my_function([4]), 4)
 			self.assertEqual(my_function([1, 2, 3, 1]), 4)
 			self.assertEqual(my_function([2, 7, 9, 3, 1]), 12)
 
