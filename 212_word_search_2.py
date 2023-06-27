@@ -34,7 +34,7 @@ Constraints:
 	words[i] consists of lowercase English letters.
 	All the strings of words are unique.
 
-https://leetcode.com/problems/two-sum/
+https://leetcode.com/problems/word-search-ii/
 """
 import unittest
 from typing import List
