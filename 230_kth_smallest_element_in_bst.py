@@ -37,6 +37,7 @@ class Solution:
 		sorted_arr = []
 
 		def inorder(node: Optional[TreeNode]) -> None:
+			nonlocal sorted_arr
 			if node.left:
 				inorder(node.left)
 
