@@ -41,20 +41,19 @@ class Solution:
 		:type target: int
 		:rtype: List[int]
 		"""
-		hashmap = {}
+		index_dict = {}
 
 		# dict[value] = index
 		for i in range(len(nums)):
 			value = nums[i]
-			hashmap[value] = i
+			index_dict[value] = i
 
 		for i in range(len(nums)):
-			complement = target - nums[i]
-			index = hashmap[complement]
+			complement_value = target - nums[i]
 			# check if it is a repeated value
 			# ex: dict[3] = 5, target = 10 and output = [3, 3] which is repeated
-			if complement in hashmap and index != i:
-				return [i, index]
+			if complement_value in index_dict and index_dict[complement_value] != i:
+				return [i, index_dict[complement_value]]
 
 
 class TestSolution(unittest.TestCase):

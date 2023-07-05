@@ -47,3 +47,13 @@ class Solution:
 
 		# return previous node
 		return prev
+
+	def reverseList_recursion(self, head: ListNode) -> ListNode:
+		# if empty list or 1 item list
+		if (not head) or (not head.next):
+			return head
+
+		p = self.reverseList(head.next)
+		head.next.next = head
+		head.next = None
+		return p

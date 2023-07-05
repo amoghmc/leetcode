@@ -57,3 +57,18 @@ class Solution:
 			curr = curr.next
 
 		return False
+
+	def hasCycle_2_ptr(self, head: Optional[ListNode]) -> bool:
+		# if empty list
+		if head is None:
+			return False
+
+		slow = head
+		fast = head.next
+		# keep 2 runners 1 faster than the other
+		while slow != fast:
+			if fast is None or fast.next is None:
+				return False
+			slow = slow.next
+			fast = fast.next.next
+		return True
