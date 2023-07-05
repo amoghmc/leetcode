@@ -65,9 +65,9 @@ class TestSolution(unittest.TestCase):
 		sol_class = Solution()
 		my_functions = [sol_class.missingNumber, sol_class.missingNumber_with_sort]
 		for my_function in my_functions:
-			self.assertEqual(my_function([3,0,1]), 2)
-			self.assertEqual(my_function([0,1]), 2)
-			self.assertEqual(my_function([9,6,4,2,3,5,7,0,1]), 8)
+			self.assertEqual(my_function([3, 0, 1]), 2)
+			self.assertEqual(my_function([0, 1]), 2)
+			self.assertEqual(my_function([9, 6, 4, 2, 3, 5, 7, 0, 1]), 8)
 
 
 if __name__ == '__main__':
