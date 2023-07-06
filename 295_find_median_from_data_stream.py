@@ -38,6 +38,7 @@ Constraints:
 
 https://leetcode.com/problems/find-median-from-data-stream/
 """
+import heapq
 
 
 class MedianFinder:
@@ -56,3 +57,43 @@ class MedianFinder:
 		else:
 			total = self.arr[size // 2 - 1] + self.arr[size // 2]
 			return total / 2
+
+
+class MedianFinderTwoHeaps:
+
+	def __init__(self):
+		# implemented as MaxHeap
+		self.less_than_mid = []
+
+		# implemented as MinHeap
+		self.greater_than_mid = []
+
+	def addNum(self, num: int) -> None:
+		less_than_mid = self.less_than_mid
+		greater_than_mid = self.greater_than_mid
+
+		heapq.heappush(less_than_mid, -1 * num)
+
+		if less_than_mid and greater_than_mid \
+			and ((-1 * less_than_mid[0]) > greater_than_mid[0]):
+			val = heapq.heappop(less_than_mid) * -1
+			heapq.heappush(greater_than_mid, val)
+
+		if len(less_than_mid) > len(greater_than_mid) + 1:
+			val = heapq.heappop(less_than_mid) * -1
+			heapq.heappush(greater_than_mid, val)
+
+		elif len(less_than_mid) + 1 < len(greater_than_mid):
+			val = heapq.heappop(greater_than_mid) * -1
+			heapq.heappush(less_than_mid, val)
+
+	def findMedian(self) -> float:
+		less_than_mid = self.less_than_mid
+		greater_than_mid = self.greater_than_mid
+
+		if len(greater_than_mid) == len(less_than_mid):
+			return (greater_than_mid[0] + (-1 * less_than_mid[0])) / 2
+		elif len(greater_than_mid) > len(less_than_mid):
+			return greater_than_mid[0]
+		else:
+			return -1 * less_than_mid[0]
