@@ -42,7 +42,7 @@ from typing import List
 class Solution:
 	def alienOrder(self, words: List[str]) -> str:
 		# dict containing descendants for all chars
-		char_children_dict = {char: set() for word in words for char in word}
+		children_dict = {char: set() for word in words for char in word}
 
 		for i in range(len(words) - 1):
 			word_1, word_2 = words[i], words[i + 1]
@@ -56,7 +56,7 @@ class Solution:
 				# if there is mismatch between chars
 				if word_1[j] != word_2[j]:
 					# add child char to set of parent char's descendants
-					char_children_dict[word_1[j]].add(word_2[j])
+					children_dict[word_1[j]].add(word_2[j])
 					break
 
 		# dict where char = false is visited and
@@ -71,7 +71,7 @@ class Solution:
 
 			visited[char] = True
 
-			for child in char_children_dict[char]:
+			for child in children_dict[char]:
 				# cycle detected
 				if dfs(child):
 					return True
@@ -79,7 +79,7 @@ class Solution:
 			visited[char] = False
 			result.append(char)
 
-		for char in char_children_dict:
+		for char in children_dict:
 			# cycle detected
 			if dfs(char):
 				return ""
