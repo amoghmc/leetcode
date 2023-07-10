@@ -38,7 +38,7 @@ class Solution:
 		# if a > (31-bit number containing all 1s)
 		# as this is the largest positive 32-bit no
 		if a > (mask >> 1):
-			# flip rightmost 32 bits
+			# take NOT after flipping rightmost 32-bits
 			return ~ (a ^ mask)
 		else:
 			return a
