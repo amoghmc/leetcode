@@ -40,11 +40,29 @@ class Solution:
 		result = list(sorted_dict.keys())
 		return result[:k]
 
+	def topKFrequent_LinearTime(self, nums: List[int], k: int) -> List[int]:
+		from collections import defaultdict
+		freq_dict = defaultdict(int)
+		freq_arr = [[] for _ in range(len(nums) + 1)]
+
+		for n in nums:
+			freq_dict[n] += 1
+
+		for n in freq_dict:
+			freq_arr[freq_dict[n]].append(n)
+
+		result = []
+		for i in range(len(freq_arr) - 1, 0, -1):
+			for n in freq_arr[i]:
+				result.append(n)
+				if len(result) == k:
+					return result
+
 
 class TestSolution(unittest.TestCase):
 	def tests(self):
 		sol_class = Solution()
-		my_functions = [sol_class.topKFrequent]
+		my_functions = [sol_class.topKFrequent, sol_class.topKFrequent_LinearTime]
 		for my_function in my_functions:
 			self.assertEqual(my_function([1, 1, 1, 2, 2, 3], 2), [1, 2])
 			self.assertEqual(my_function([1], 1), [1])
