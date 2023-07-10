@@ -24,19 +24,19 @@ import unittest
 
 class Solution:
 	def getSum(self, a: int, b: int) -> int:
-		# 32 bit number containing all 1s
+		# 32-bit number containing all 1s
 		mask = 0xffffffff
 
 		# while there is no carry
 		while b != 0:
-			# get the carry after AND and left shift
+			# get the carry after (AND with left shift)
 			carry = ((a & b) << 1) & mask
 			# sum without carry using XOR
 			a = (a ^ b) & mask
 			b = carry
 
-		# if a > (31 bit number containing all 1s)
-		# as this is the largest positive 32 bit no
+		# if a > (31-bit number containing all 1s)
+		# as this is the largest positive 32-bit no
 		if a > (mask >> 1):
 			# flip rightmost 32 bits
 			return ~ (a ^ mask)
