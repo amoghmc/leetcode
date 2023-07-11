@@ -32,20 +32,22 @@ class Solution:
 		start_arr.sort()
 		end_arr.sort()
 
-		start_ptr, end_ptr = 0, 0
-		tmp, rooms = 0, 0
+		start_ptr = end_ptr = 0
+		curr_rooms = total_rooms = 0
 
-		while start_ptr < len(start_arr):
+		# Until all the meetings have been processed
+		while start_ptr < len(intervals):
+			# check if a meeting has to end before another starts
 			if start_arr[start_ptr] < end_arr[end_ptr]:
-				tmp += 1
+				curr_rooms += 1
 				start_ptr += 1
 			else:
-				tmp -= 1
+				curr_rooms -= 1
 				end_ptr += 1
 
-			rooms = max(tmp, rooms)
+			total_rooms = max(curr_rooms, total_rooms)
 
-		return rooms
+		return total_rooms
 
 
 class TestSolution(unittest.TestCase):
