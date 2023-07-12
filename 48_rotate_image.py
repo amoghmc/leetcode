@@ -31,12 +31,12 @@ class Solution:
 		Do not return anything, modify matrix in-place instead.
 		"""
 		# reverse
-		low = 0
-		high = len(matrix) - 1
-		while low < high:
-			matrix[low], matrix[high] = matrix[high], matrix[low]
-			low += 1
-			high -= 1
+		up = 0
+		down = len(matrix) - 1
+		while up < down:
+			matrix[up], matrix[down] = matrix[down], matrix[up]
+			up += 1
+			down -= 1
 
 		# transpose
 		for i in range(len(matrix)):
