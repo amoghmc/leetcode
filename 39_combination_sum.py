@@ -46,17 +46,19 @@ class Solution(object):
 	def combinationSum(self, candidates, target):
 		result = []
 		candidates.sort()
-		self.dfs(candidates, target, 0, [], result)
-		return result
 
-	def dfs(self, candidates, target, index, path, result):
-		if target < 0:
-			return  # backtracking
-		if target == 0:
-			result.append(path)
-			return
-		for i in range(index, len(candidates)):
-			self.dfs(candidates, target - candidates[i], i, path + [candidates[i]], result)
+		def dfs(curr_target, index, path):
+			nonlocal result, candidates
+			if curr_target < 0:
+				return  # backtracking
+			if curr_target == 0:
+				result.append(path)
+				return
+			for i in range(index, len(candidates)):
+				dfs(curr_target - candidates[i], i, path + [candidates[i]])
+
+		dfs(target, 0, [])
+		return result
 
 
 class TestSolution(unittest.TestCase):

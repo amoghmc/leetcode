@@ -54,6 +54,7 @@ class Solution:
 		while curr:
 			if i == target - 1:
 				curr.next = curr.next.next
+				return head
 			curr = curr.next
 			i += 1
 

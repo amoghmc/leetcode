@@ -48,7 +48,7 @@ class ListNode:
 class Solution:
 	def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
 		nodes = []
-		head = point = ListNode(0)
+		head = curr = ListNode(0)
 
 		# get values of each list
 		for ll in lists:
@@ -58,7 +58,7 @@ class Solution:
 
 		# sort and append them to a new linked list
 		for x in sorted(nodes):
-			point.next = ListNode(x)
-			point = point.next
+			curr.next = ListNode(x)
+			curr = curr.next
 
 		return head.next

@@ -28,17 +28,17 @@ import unittest
 
 class Solution:
 	def isAnagram(self, s: str, t: str) -> bool:
-		found = []
+		seen = []
 		for char in s:
-			found.append(char)
+			seen.append(char)
 
 		for char in t:
-			if char in found:
-				found.remove(char)
+			if char in seen:
+				seen.remove(char)
 			else:
 				return False
 
-		return len(found) == 0
+		return len(seen) == 0
 
 
 class TestSolution(unittest.TestCase):
