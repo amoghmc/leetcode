@@ -44,8 +44,7 @@ class Solution:
 		for i in range(size):
 			for j in range(i + 1, size):
 				area = min(height[i], height[j]) * (j - i)
-				if area > max_area:
-					max_area = area
+				max_area = max(max_area, area)
 
 		return max_area
 
@@ -56,8 +55,7 @@ class Solution:
 
 		while i < j:
 			area = min(height[i], height[j]) * (j - i)
-			if area > max_area:
-				max_area = area
+			max_area = max(max_area, area)
 			if height[i] <= height[j]:
 				i += 1
 			else:

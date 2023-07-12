@@ -52,8 +52,11 @@ class Solution:
 		while i < s_len:
 			j = s_len - 1
 
+			# check palindrome by moving j to left until
+			# a match is found
 			while j > i:
-				if s[i] == s[j] and self.checkPalindrome(s, i, j):
+				if s[i] == s[j] \
+					and self.checkPalindrome(s, i, j):
 					if max_size < j - i + 1:
 						max_size = j - i + 1
 						max_pal = s[i: j + 1]
@@ -73,6 +76,8 @@ class Solution:
 			else:
 				break
 
+		# if size is odd then j == i
+		# else i > j
 		if (j == i) or (i - j == 1):
 			return True
 

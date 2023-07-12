@@ -19,6 +19,7 @@ Constraints:
 	1 <= sz <= 30
 	0 <= Node.val <= 100
 	1 <= n <= sz
+
 https://leetcode.com/problems/remove-nth-node-from-end-of-list/description/
 """
 from typing import Optional

@@ -31,16 +31,16 @@ import unittest
 
 class Solution:
 	def lengthOfLongestSubstring(self, s: str) -> int:
-		max_size = i = j = 0
+		max_size = left_ptr = right_ptr = 0
 		seen_set = set()
 
-		while i < len(s) and j < len(s):
-			if s[j] in seen_set:
-				seen_set.remove(s[i])
-				i += 1
+		while left_ptr < len(s) and right_ptr < len(s):
+			if s[right_ptr] in seen_set:
+				seen_set.remove(s[left_ptr])
+				left_ptr += 1
 			else:
-				seen_set.add(s[j])
-				j += 1
+				seen_set.add(s[right_ptr])
+				right_ptr += 1
 			if len(seen_set) > max_size:
 				max_size = len(seen_set)
 
