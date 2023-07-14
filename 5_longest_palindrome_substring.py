@@ -74,14 +74,9 @@ class Solution:
 				i += 1
 				j -= 1
 			else:
-				break
+				return False
 
-		# if size is odd then j == i
-		# else i > j
-		if (j == i) or (i - j == 1):
-			return True
-
-		return False
+		return True
 
 
 class TestSolution(unittest.TestCase):
