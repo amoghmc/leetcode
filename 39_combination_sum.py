@@ -49,11 +49,15 @@ class Solution(object):
 
 		def dfs(curr_target, index, path):
 			nonlocal result, candidates
+			# if we overshoot, we backtrack
 			if curr_target < 0:
-				return  # backtracking
+				return
+			# if we hit the target we add to the result
 			if curr_target == 0:
 				result.append(path)
 				return
+			# else we try all possible values from
+			# ith candidate to last candidate
 			for i in range(index, len(candidates)):
 				dfs(curr_target - candidates[i], i, path + [candidates[i]])
 

@@ -35,11 +35,15 @@ from typing import List
 class Solution:
 	def maxSubArray(self, nums: List[int]) -> int:
 		max_sum = nums[0]
-		curr_sum = 0
+		curr = 0
 
-		for num in nums:
-			curr_sum = max(num, curr_sum + num)
-			max_sum = max(curr_sum, max_sum)
+		for x in nums:
+			# if sum so far is negative,
+			# then discard prev subarray
+			if curr < 0:
+				curr = 0
+			curr += x
+			max_sum = max(max_sum, curr)
 
 		return max_sum
 
