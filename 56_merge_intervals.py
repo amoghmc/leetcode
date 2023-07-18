@@ -27,28 +27,27 @@ from typing import List
 
 class Solution:
 	def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-		i = 0
-		j = 1
+		i, j = 0, 1
 		size = len(intervals)
 		check = True
 		intervals.sort()
+
 		# while there is a merge keep checking
 		while check:
 			check = False
 			while j < size:
-				len_i = len(intervals[i])
-				len_j = len(intervals[j])
-				if intervals[i][len_i - 1] >= intervals[j][0] and intervals[i][0] <= intervals[j][len_j - 1]:
-					intervals[i] = [min(intervals[i][0], intervals[j][0]),
-					                max(intervals[i][len_i - 1], intervals[j][len_j - 1])]
+				# jth interval starts after ith interval ends
+				if intervals[i][1] >= intervals[j][0]:
+					# merge ith and jth interval as ith interval
+					intervals[i] = [min(intervals[i][0], intervals[j][0]), max(intervals[i][1], intervals[j][1])]
+					# remove jth interval
 					intervals.pop(j)
 					size -= 1
 					check = True
 				else:
 					i += 1
 					j += 1
-			i = 0
-			j = 1
+			i, j = 0, 1
 		return intervals
 
 
