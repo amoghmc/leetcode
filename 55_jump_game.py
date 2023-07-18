@@ -1,6 +1,8 @@
 #!/home/linuxbrew/.linuxbrew/bin/python3
 """
-You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.
+You are given an integer array nums.
+You are initially positioned at the array's first index,
+and each element in the array represents your maximum jump length at that position.
 
 Return true if you can reach the last index, or false otherwise.
 
@@ -34,11 +36,13 @@ class Index(Enum):
 
 class Solution:
 	def canJump(self, nums: List[int]) -> bool:
-		last_pos = len(nums) - 1
-		for i in range(last_pos - 1, -1, -1):
-			if (nums[i] + i) >= last_pos:
-				last_pos = i
-		return last_pos == 0
+		goal = len(nums) - 1
+		# keep decreasing the goal post
+		for i in range(goal - 1, -1, -1):
+			# if ith_index + jump_value >= goal_post
+			if (i + nums[i]) >= goal:
+				goal = i
+		return goal == 0
 
 	def canJump_dp_top_down(self, nums: List[int]) -> bool:
 		memo = [Index.UNKNOWN for _ in range(len(nums))]
