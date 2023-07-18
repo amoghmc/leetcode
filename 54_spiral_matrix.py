@@ -25,40 +25,31 @@ from typing import List
 class Solution:
 	def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
 		result = []
-		rows, columns = len(matrix), len(matrix[0])
-		up = left = 0
-		right = columns - 1
-		down = rows - 1
+		left, right = 0, len(matrix[0])
+		top, bottom = 0, len(matrix)
 
-		while len(result) < rows * columns:
-			# Traverse from left to right.
-			# [0, 0] to [0, n - 1]
-			for col in range(left, right + 1):
-				result.append(matrix[up][col])
+		while left < right and top < bottom:
+			# get every i in top row
+			for i in range(left, right):
+				result.append(matrix[top][i])
+			top += 1
 
-			# Traverse downwards.
-			# [1, n - 1] to [m - 1, n - 1]
-			for row in range(up + 1, down + 1):
-				result.append(matrix[row][right])
-
-			# Make sure we are now on a different row.
-			if up != down:
-				# Traverse from right to left.
-				# [m - 1, n - 2] to [m - 1, 0]
-				for col in range(right - 1, left - 1, -1):
-					result.append(matrix[down][col])
-
-			# Make sure we are now on a different column.
-			if left != right:
-				# Traverse upwards.
-				# [m - 2, 0] to [1, 0]
-				for row in range(down - 1, up, -1):
-					result.append(matrix[row][left])
-
-			# update boundaries
-			up += 1
+			# get every i in right col
+			for i in range(top, bottom):
+				result.append(matrix[i][right - 1])
 			right -= 1
-			down -= 1
+
+			if left >= right or top >= bottom:
+				break
+
+			# get every i in bottom row
+			for i in range(right - 1, left - 1, -1):
+				result.append(matrix[bottom - 1][i])
+			bottom -= 1
+
+			# get every i in left col
+			for i in range(bottom - 1, top - 1, -1):
+				result.append(matrix[i][left])
 			left += 1
 
 		return result
