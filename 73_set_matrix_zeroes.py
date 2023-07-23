@@ -34,17 +34,21 @@ class Solution:
 		clms = len(matrix[0])
 		zero_rows = set()
 		zero_clms = set()
+
+		# add all rows and columns with 0s
 		for i in range(rows):
 			for j in range(clms):
 				if matrix[i][j] == 0:
 					zero_rows.add(i)
 					zero_clms.add(j)
 
-		for i in range(clms):
-			if i in zero_clms:
-				for j in range(rows):
-					matrix[j][i] = 0
+		# set columns 0
+		for j in range(clms):
+			if j in zero_clms:
+				for i in range(rows):
+					matrix[i][j] = 0
 
+		# set rows 0
 		for i in range(rows):
 			if i in zero_rows:
 				for j in range(clms):

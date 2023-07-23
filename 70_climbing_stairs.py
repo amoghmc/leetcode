@@ -34,12 +34,17 @@ class Solution:
 			return 1
 
 		dp = [0 for _ in range(n + 1)]
-		dp[1] = 1
-		dp[2] = 2
+		# ways to climb 1 step
+		dp[0] = 1
+		# ways to climb 2 steps
+		dp[1] = 2
 
-		for i in range(3, n + 1):
+		# fibonacci series
+		for i in range(2, n):
 			dp[i] = dp[i - 1] + dp[i - 2]
-		return dp[n]
+
+		# return ways to climb n steps
+		return dp[n - 1]
 
 
 class TestSolution(unittest.TestCase):
