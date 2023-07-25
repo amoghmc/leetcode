@@ -43,9 +43,6 @@ class Solution:
 		:rtype: str
 		"""
 
-		if not t or not s:
-			return ""
-
 		# Dictionary which keeps a count of all the unique characters in t.
 		dict_t = {}
 		for character in t:
