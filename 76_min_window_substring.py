@@ -44,43 +44,40 @@ class Solution:
 		"""
 
 		# Dictionary which keeps a count of all the unique characters in t.
-		dict_t = {}
-		for character in t:
-			dict_t[character] = dict_t.get(character, 0) + 1
+		unique_count_dict = {}
+		# Dictionary which keeps a count of all the unique characters in the current window.
+		window_count_dict = {}
+
+		for right_char in t:
+			unique_count_dict[right_char] = unique_count_dict.get(right_char, 0) + 1
 
 		# Number of unique characters in t, which need to be present in the desired window.
-		required = len(dict_t)
-
-		# left and right pointer
-		l_ptr, r_ptr = 0, 0
-
+		unique_required = len(unique_count_dict)
 		# formed is used to keep track of how many unique characters in t are
 		# present in the current window in its desired frequency.
 		# e.g. if t is "AABC" then the window must have two A's, one B and one C.
 		# Thus formed would be = 3 when all these conditions are met.
-		formed = 0
+		unique_formed = 0
 
-		# Dictionary which keeps a count of all the unique characters in the current window.
-		window_counts = {}
+		# left and right pointer
+		l_ptr, r_ptr = 0, 0
 
 		# ans tuple of the form (window length, left, right)
 		ans = [float("inf"), None, None]
 
 		while r_ptr < len(s):
-
 			# Add one character from the right to the window
-			character = s[r_ptr]
-			window_counts[character] = window_counts.get(character, 0) + 1
+			left_char = s[r_ptr]
+			window_count_dict[left_char] = window_count_dict.get(left_char, 0) + 1
 
 			# If the frequency of the current character added
 			# equals to the desired count in t then,
 			# increment the formed count by 1.
-			if character in dict_t and window_counts[character] == dict_t[character]:
-				formed += 1
+			if left_char in unique_count_dict and window_count_dict[left_char] == unique_count_dict[left_char]:
+				unique_formed += 1
 
 			# Try and contract the window till the point where it ceases to be 'desirable'.
-			while l_ptr <= r_ptr and formed == required:
-
+			while l_ptr <= r_ptr and unique_formed == unique_required:
 				# Save the smallest window until now.
 				size = r_ptr - l_ptr + 1
 				if size < ans[0]:
@@ -88,10 +85,10 @@ class Solution:
 
 				# The character at the position pointed by the
 				# `left` pointer is no longer a part of the window.
-				character = s[l_ptr]
-				window_counts[character] -= 1
-				if character in dict_t and window_counts[character] < dict_t[character]:
-					formed -= 1
+				right_char = s[l_ptr]
+				window_count_dict[right_char] -= 1
+				if right_char in unique_count_dict and window_count_dict[right_char] < unique_count_dict[right_char]:
+					unique_formed -= 1
 
 				# Move the left pointer ahead, this would help to look for a new window.
 				l_ptr += 1
