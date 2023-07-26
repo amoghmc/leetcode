@@ -38,45 +38,46 @@ class Solution(object):
 		:type word: str
 		:rtype: bool
 		"""
-		self.ROWS = len(board)
-		self.COLS = len(board[0])
-		self.board = board
+		rows = len(board)
+		clms = len(board[0])
 
-		for row in range(self.ROWS):
-			for col in range(self.COLS):
-				if self.dfs(row, col, word):
+		def dfs(row, col, suffix):
+			nonlocal board, rows, clms
+
+			# bottom case: we find match for each letter in the word
+			if len(suffix) == 0:
+				return True
+
+			# if out of bounds return false
+			if row < 0 or row == rows or col < 0 or col == clms:
+				return False
+
+			# if mismatch or cycle, return false
+			if board[row][col] != suffix[0] or board[row][col] == '#':
+				return False
+
+			# mark the choice before exploring further.
+			board[row][col] = '#'
+
+			# explore the 4 neighbor directions
+			ret = False
+			for rowOffset, colOffset in [(0, 1), (-1, 0), (0, -1), (1, 0)]:
+				if dfs(row + rowOffset, col + colOffset, suffix[1:]):
+					ret = True
+
+			# revert the marking
+			board[row][col] = suffix[0]
+
+			# Tried all directions, and return result
+			return ret
+
+		for row in range(rows):
+			for col in range(clms):
+				if dfs(row, col, word):
 					return True
 
 		# no match found after all exploration
 		return False
-
-	def dfs(self, row, col, suffix):
-		# bottom case: we find match for each letter in the word
-		if len(suffix) == 0:
-			return True
-
-		# if out of bounds return false
-		if row < 0 or row == self.ROWS or col < 0 or col == self.COLS:
-			return False
-
-		# if mismatch or cycle, return false
-		if self.board[row][col] != suffix[0] or self.board[row][col] == '#':
-			return False
-
-		# mark the choice before exploring further.
-		self.board[row][col] = '#'
-
-		# explore the 4 neighbor directions
-		ret = False
-		for rowOffset, colOffset in [(0, 1), (-1, 0), (0, -1), (1, 0)]:
-			if self.dfs(row + rowOffset, col + colOffset, suffix[1:]):
-				ret = True
-
-		# revert the marking
-		self.board[row][col] = suffix[0]
-
-		# Tried all directions, and return result
-		return ret
 
 
 class TestSolution(unittest.TestCase):
