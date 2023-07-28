@@ -52,7 +52,7 @@ class Solution(object):
 			if row < 0 or row == rows or col < 0 or col == clms:
 				return False
 
-			# if mismatch or cycle, return false
+			# if mismatch or in cycle, return false
 			if board[row][col] != suffix[0] or board[row][col] == '#':
 				return False
 

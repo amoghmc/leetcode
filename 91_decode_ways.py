@@ -45,31 +45,32 @@ Constraints:
 https://leetcode.com/problems/decode-ways/
 """
 import unittest
-from functools import lru_cache
 
 
 class Solution:
-
-	@lru_cache(maxsize=None)
-	def recursiveWithMemo(self, index, s) -> int:
-		# If you reach the end of the string or
-		# If the last char of string is between 1-9 inclusive
-		# Return 1 for success.
-		if index == len(s) or ((index == len(s) - 1) and s[index] != '0'):
-			return 1
-
-		# If the string starts with a zero, it can't be decoded
-		if s[index] == '0':
-			return 0
-
-		answer = self.recursiveWithMemo(index + 1, s)
-		if int(s[index: index + 2]) <= 26:
-			answer += self.recursiveWithMemo(index + 2, s)
-
-		return answer
-
 	def numDecodings(self, s: str) -> int:
-		return self.recursiveWithMemo(0, s)
+		pos_cache = {len(s): 1}
+
+		def dfs(pos: int) -> int:
+			nonlocal pos_cache
+			# valid base case
+			if pos in pos_cache:
+				return pos_cache[pos]
+
+			# invalid base case
+			if s[pos] == "0":
+				return 0
+
+			result = dfs(pos + 1)
+			# if a sub problem of length 2 can be formed
+			if pos + 1 < len(s) and int(s[pos:pos + 2]) < 27:
+				result += dfs(pos + 2)
+
+			# store result in cache
+			pos_cache[pos] = result
+			return result
+
+		return dfs(0)
 
 
 class TestSolution(unittest.TestCase):
