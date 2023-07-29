@@ -44,10 +44,10 @@ class Solution:
 		# root is always 1st element of preorder list
 		root = preorder[0]
 
-		mid = inorder.index(root)
+		root_index = inorder.index(root)
 		# preorder [1, root_index], inorder [0, root - 1]
-		left = self.buildTree(preorder[1:mid + 1], inorder[:mid])
+		left = self.buildTree(preorder[1:root_index + 1], inorder[:root_index])
 		# preorder [root_index + 1, end], inorder [root + 1, end]
-		right = self.buildTree(preorder[mid + 1:], inorder[mid + 1:])
+		right = self.buildTree(preorder[root_index + 1:], inorder[root_index + 1:])
 
 		return TreeNode(root, left, right)

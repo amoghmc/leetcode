@@ -40,11 +40,13 @@ class Solution:
 		:rtype: List[List[int]]
 		"""
 		levels = []
+		# base case of empty tree
 		if not root:
 			return levels
 
 		def helper(node, level):
-			# start the current level with empty list
+			nonlocal levels
+			# if new level then create empty list
 			if len(levels) == level:
 				levels.append([])
 
