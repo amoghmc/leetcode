@@ -4,7 +4,6 @@ Given an unsorted array of integers nums,
 return the length of the longest consecutive elements sequence.
 
 You must write an algorithm that runs in O(n) time.
-# TODO O(n) time
 
 Example 1:
 	Input: nums = [100,4,200,1,3,2]
@@ -27,25 +26,21 @@ import unittest
 
 class Solution:
 	def longestConsecutive(self, nums):
-		# if empty return 0
-		if not nums:
-			return 0
+		nums_set = set(nums)
+		max_len = 0
 
-		nums.sort()
+		for n in nums:
+			# check if start of a new sequence
+			if n - 1 not in nums_set:
+				curr_len = 1
 
-		longest_streak = 1
-		current_streak = 1
+				# find the length of the sequence
+				while n + curr_len in nums_set:
+					curr_len += 1
 
-		for i in range(1, len(nums)):
-			if nums[i] != nums[i - 1]:
-				if nums[i] == nums[i - 1] + 1:
-					current_streak += 1
-				else:
-					current_streak = 1
+				max_len = max(curr_len, max_len)
 
-				longest_streak = max(longest_streak, current_streak)
-
-		return longest_streak
+		return max_len
 
 
 class TestSolution(unittest.TestCase):

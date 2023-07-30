@@ -29,18 +29,34 @@ Constraints:
 
 https://leetcode.com/problems/valid-palindrome/
 """
+import string
 import unittest
 
 
 class Solution:
 	def isPalindrome(self, s: str) -> bool:
-		alphanumeric_list = []
-		abc = "abcdefghijklmnopqrstuvwxyz0123456789"
+		# ascii_lowercase = abc...xyz
+		# digits = 0..9
+		abc = string.ascii_lowercase + string.digits
+
+		reduced_s = ""
+
+		# remove non-alphanumeric chars
 		for char in s:
 			if char.lower() in abc:
-				alphanumeric_list.append(char.lower())
-		converted_str = "".join(alphanumeric_list)
-		return converted_str == converted_str[::-1]
+				reduced_s += char.lower()
+
+		low, high = 0, len(reduced_s) - 1
+
+		# check palindrome
+		while low < high:
+			if reduced_s[low].lower == reduced_s[high].lower:
+				low += 1
+				high -= 1
+			else:
+				return False
+
+		return True
 
 
 class TestSolution(unittest.TestCase):
