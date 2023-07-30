@@ -48,8 +48,9 @@ class ListNode:
 class Solution:
 	def hasCycle(self, head: Optional[ListNode]) -> bool:
 		seen = set()
-
 		curr = head
+
+		# keep iterating until a duplicate node is found
 		while curr:
 			if curr in seen:
 				return True
@@ -65,6 +66,7 @@ class Solution:
 
 		slow = head
 		fast = head.next
+
 		# keep 2 runners 1 faster than the other
 		while slow != fast:
 			if fast is None or fast.next is None:
