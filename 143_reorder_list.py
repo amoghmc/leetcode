@@ -52,10 +52,14 @@ class Solution:
 		prev = None
 		curr = slow
 		while curr:
-			temp = curr.next
+			next = curr.next
+
+			# reverse pointer
 			curr.next = prev
+
+			# move forward
 			prev = curr
-			curr = temp
+			curr = next
 
 		# merge two sorted linked lists [Problem 21]
 		# merge 1->2->3->4 and 6->5->4 into 1->6->2->5->3->4

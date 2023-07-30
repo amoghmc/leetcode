@@ -47,14 +47,18 @@ class Solution:
 				return mid
 			# if left sorted portion
 			if nums[left_ptr] <= nums[mid]:
+				# if target is right of mid
 				if target < nums[left_ptr] or target > nums[mid]:
 					left_ptr = mid + 1
+				# if target is left of mid
 				else:
 					right_ptr = mid - 1
 			# if right sorted portion
 			else:
+				# if target is left of mid
 				if target > nums[right_ptr] or target < nums[mid]:
 					right_ptr = mid - 1
+				# if target is right of mid
 				else:
 					left_ptr = mid + 1
 		return -1
