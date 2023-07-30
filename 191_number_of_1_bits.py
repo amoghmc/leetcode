@@ -32,9 +32,11 @@ import unittest
 class Solution:
 	def hammingWeight(self, n: int) -> int:
 		result = 0
+
 		while n:
 			# since remainder of odd no is 1
-			result += n % 2
+			result += n & 1
+
 			# right shift by 1 bit
 			n = n >> 1
 		return result

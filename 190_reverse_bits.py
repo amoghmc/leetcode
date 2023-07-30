@@ -28,9 +28,12 @@ import unittest
 class Solution:
 	def reverseBits(self, n):
 		result, power = 0, 31
+
 		while n:
 			# left shift remainder by power bit
-			result += (n % 2) << power
+			# result += n % 2 << power
+			result += (n & 1) << power
+
 			# right shift by 1 bit
 			n = n >> 1
 			power -= 1
