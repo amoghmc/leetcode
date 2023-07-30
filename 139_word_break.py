@@ -34,25 +34,32 @@ Constraints:
 https://leetcode.com/problems/word-break/
 """
 import unittest
-from functools import lru_cache
 from typing import List
 
 
 class Solution:
 	def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-		@lru_cache
-		def wordBreakMemo(s: str, start: int):
-			nonlocal wordDict
-			# if end of string then we have a complete match
-			if start == len(s):
-				return True
-			# recursively check for each part of string
-			for end in range(start + 1, len(s) + 1):
-				if s[start:end] in wordDict and wordBreakMemo(s, end):
-					return True
-			return False
+		pos_cache = {len(s): True}
 
-		return wordBreakMemo(s, 0)
+		def dfs(pos: int) -> int:
+			nonlocal pos_cache, wordDict, s
+			# valid base case
+			if pos in pos_cache:
+				return pos_cache[pos]
+
+			result = False
+			for word in wordDict:
+				# if a word exists at pos
+				if (pos + len(word)) <= len(s) and s[pos: pos + len(word)] == word:
+					result = dfs(pos + len(word))
+				if result:
+					break
+
+			# store result in cache
+			pos_cache[pos] = result
+			return result
+
+		return dfs(0)
 
 
 class TestSolution(unittest.TestCase):
