@@ -43,7 +43,7 @@ class Solution:
 		result = 0
 
 		for start, end in intervals[1:]:
-			# if previous interval after new one starts
+			# if previous interval starts after new one starts
 			# then they are overlapping intervals
 			if start < prev_end:
 				result += 1
@@ -53,7 +53,7 @@ class Solution:
 
 			# previous interval has finished before new one
 			else:
-				# remove the previous interval
+				# move the previous end to current end
 				prev_end = end
 
 		return result
