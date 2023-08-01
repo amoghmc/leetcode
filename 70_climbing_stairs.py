@@ -32,6 +32,8 @@ class Solution:
 	def climbStairs(self, n: int) -> int:
 		if n == 1:
 			return 1
+		elif n == 2:
+			return 2
 
 		dp = [0 for _ in range(n + 1)]
 		# ways to climb 1 step

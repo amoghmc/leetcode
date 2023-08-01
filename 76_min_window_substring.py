@@ -48,8 +48,8 @@ class Solution:
 		# Dictionary which keeps a count of all the unique characters in the current window.
 		window_count_dict = {}
 
-		for right_char in t:
-			unique_count_dict[right_char] = unique_count_dict.get(right_char, 0) + 1
+		for char in t:
+			unique_count_dict[char] = unique_count_dict.get(char, 0) + 1
 
 		# Number of unique characters in t, which need to be present in the desired window.
 		unique_required = len(unique_count_dict)
@@ -67,13 +67,13 @@ class Solution:
 
 		while r_ptr < len(s):
 			# Add one character from the right to the window
-			left_char = s[r_ptr]
-			window_count_dict[left_char] = window_count_dict.get(left_char, 0) + 1
+			right_char = s[r_ptr]
+			window_count_dict[right_char] = window_count_dict.get(right_char, 0) + 1
 
 			# If the frequency of the current character added
 			# equals to the desired count in t then,
 			# increment the formed count by 1.
-			if left_char in unique_count_dict and window_count_dict[left_char] == unique_count_dict[left_char]:
+			if right_char in unique_count_dict and window_count_dict[right_char] == unique_count_dict[right_char]:
 				unique_formed += 1
 
 			# Try and contract the window till the point where it ceases to be 'desirable'.
@@ -85,9 +85,9 @@ class Solution:
 
 				# The character at the position pointed by the
 				# `left` pointer is no longer a part of the window.
-				right_char = s[l_ptr]
-				window_count_dict[right_char] -= 1
-				if right_char in unique_count_dict and window_count_dict[right_char] < unique_count_dict[right_char]:
+				left_char = s[l_ptr]
+				window_count_dict[left_char] -= 1
+				if left_char in unique_count_dict and window_count_dict[left_char] < unique_count_dict[left_char]:
 					unique_formed -= 1
 
 				# Move the left pointer ahead, this would help to look for a new window.

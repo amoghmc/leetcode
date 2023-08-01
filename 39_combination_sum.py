@@ -40,29 +40,32 @@ Constraints:
 https://leetcode.com/problems/combination-sum/
 """
 import unittest
+from typing import List
 
 
-class Solution(object):
-	def combinationSum(self, candidates, target):
-		result = []
-		candidates.sort()
+class Solution:
+	def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+		results = []
 
-		def dfs(curr_target, index, path):
-			nonlocal result, candidates
-			# if we overshoot, we backtrack
-			if curr_target < 0:
+		def dfs(remain, start, comb):
+			if remain == 0:
+				# make a deep copy of the current combination
+				results.append(list(comb))
 				return
-			# if we hit the target we add to the result
-			if curr_target == 0:
-				result.append(path)
+			elif remain < 0:
+				# exceed the scope, stop exploration.
 				return
-			# else we try all possible values from
-			# ith candidate to last candidate
-			for i in range(index, len(candidates)):
-				dfs(curr_target - candidates[i], i, path + [candidates[i]])
+
+			for i in range(start, len(candidates)):
+				# add the number into the combination
+				comb.append(candidates[i])
+				# give the current number another chance, rather than moving on
+				dfs(remain - candidates[i], i, comb)
+				# backtrack, remove the number from the combination
+				comb.pop()
 
 		dfs(target, 0, [])
-		return result
+		return results
 
 
 class TestSolution(unittest.TestCase):

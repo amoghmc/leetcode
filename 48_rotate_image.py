@@ -40,8 +40,8 @@ class Solution:
 
 		# transpose
 		for i in range(len(matrix)):
-			# can also be range(i) i.e. 0 to i - 1
-			for j in range(i, len(matrix)):
+			# can also be range(i, len(matrix))
+			for j in range(i):
 				matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
 
 		return

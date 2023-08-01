@@ -41,8 +41,7 @@ class Solution:
 			else:
 				seen_set.add(s[right_ptr])
 				right_ptr += 1
-			if len(seen_set) > max_size:
-				max_size = len(seen_set)
+			max_size = max(len(seen_set), max_size)
 
 		return max_size
 
