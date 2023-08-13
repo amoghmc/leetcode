@@ -68,7 +68,7 @@ class Trie:
 			node = node.children[char]
 		node.is_end = True
 
-	def search(self, word: str) -> bool:
+	def searchPrefix(self, word):
 		"""
 		Returns if the word is in the trie.
 		"""
@@ -76,27 +76,26 @@ class Trie:
 		for char in word:
 			# if link doesn't exist, as word(link) doesn't exist
 			if char not in node.children:
-				return False
+				return None
 			# move down the link recursively
 			node = node.children[char]
 
 		# return True if word is present and not just a prefix
-		return node.is_end
+		return node
+
+	def search(self, word: str) -> bool:
+		"""
+		Returns if the word is in the trie.
+		"""
+		node = self.searchPrefix(word)
+		return node is not None and node.is_end
 
 	def startsWith(self, word: str) -> bool:
 		"""
 		Returns if there is any word in the trie that starts with the given prefix.
 		"""
-		node = self
-		for char in word:
-			# if link doesn't exist, as word(link) doesn't exist
-			if char not in node.children:
-				return False
-			# move down the link recursively
-			node = node.children[char]
-
-		# prefix is present
-		return True
+		node = self.searchPrefix(word)
+		return node is not None
 
 
 class TestSolution(unittest.TestCase):
