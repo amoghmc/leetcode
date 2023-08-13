@@ -76,6 +76,7 @@ class Solution(object):
 		def dfs(node):
 			nonlocal visited
 
+			# if empty graph or reached the end
 			if not node:
 				return node
 
