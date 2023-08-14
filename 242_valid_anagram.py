@@ -33,10 +33,9 @@ class Solution:
 			seen.append(char)
 
 		for char in t:
-			if char in seen:
-				seen.remove(char)
-			else:
+			if char not in seen:
 				return False
+			seen.remove(char)
 
 		return len(seen) == 0
 

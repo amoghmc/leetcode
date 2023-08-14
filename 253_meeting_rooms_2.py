@@ -37,7 +37,7 @@ class Solution:
 
 		# Until all the meetings have been processed
 		while start_ptr < len(intervals):
-			# check if a meeting has to end before another starts
+			# check if a curr meeting starts before prev one ends
 			if start_arr[start_ptr] < end_arr[end_ptr]:
 				curr_rooms += 1
 				start_ptr += 1

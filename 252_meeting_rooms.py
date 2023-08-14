@@ -30,7 +30,7 @@ class Solution:
 		intervals.sort()
 
 		for i in range(len(intervals) - 1):
-			# ensure current meeting ends before next one starts
+			# check if curr meeting ends after next one starts
 			if intervals[i][1] > intervals[i + 1][0]:
 				return False
 
