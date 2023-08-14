@@ -60,7 +60,7 @@ class Trie:
 			if char not in curr.children:
 				curr.children[char] = Trie()
 
-				# add parent and value
+				# add parent and value for prune_word function
 				curr.children[char].parent = curr
 				curr.children[char].val = char
 
@@ -84,54 +84,54 @@ class Solution:
 		:type word: List[str]
 		:rtype: bool
 		"""
-		self.ROWS = len(board)
-		self.COLS = len(board[0])
-		self.board = board
-		self.found = []
+		rows = len(board)
+		clms = len(board[0])
+		found = []
 
 		root = Trie()
 		for word in words:
 			root.insert(word)
 
-		for row in range(self.ROWS):
-			for col in range(self.COLS):
-				self.dfs(row, col, "", root)
+		def dfs(row, col, word, curr):
+			"""
+				backtracking with side-effect,
+				the matched letter in the board would be marked with "#".
+			"""
 
-		return self.found
+			# if out of bounds return false
+			if row < 0 or row == rows or col < 0 or col == clms:
+				return
 
-	def dfs(self, row, col, word, node):
-		"""
-			backtracking with side-effect,
-			the matched letter in the board would be marked with "#".
-		"""
+			# if word doesn't exist in trie
+			char = board[row][col]
+			if char not in curr.children or char == '#':
+				return
 
-		# if out of bounds return false
-		if row < 0 or row == self.ROWS or col < 0 or col == self.COLS:
+			curr = curr.children[char]
+			word += char
+			if curr.is_end:
+				found.append(word)
+				curr.is_end = False
+				curr.prune_word()
+
+			# mark the choice before exploring further.
+			board[row][col] = '#'
+
+			# explore the 4 neighbor directions
+			for rowOffset, colOffset in [(0, 1), (-1, 0), (0, -1), (1, 0)]:
+				dfs(row + rowOffset, col + colOffset, word, curr)
+
+			# revert the marking
+			board[row][col] = word[-1]
+
+			# Tried all directions, and did not find any match
 			return
 
-		# if word doesn't exist in trie
-		if self.board[row][col] not in node.children or self.board[row][col] == '#':
-			return
+		for row in range(rows):
+			for col in range(clms):
+				dfs(row, col, "", root)
 
-		node = node.children[self.board[row][col]]
-		word += self.board[row][col]
-		if node.is_end:
-			self.found.append(word)
-			node.is_end = False
-			node.prune_word()
-
-		# mark the choice before exploring further.
-		self.board[row][col] = '#'
-
-		# explore the 4 neighbor directions
-		for rowOffset, colOffset in [(0, 1), (-1, 0), (0, -1), (1, 0)]:
-			self.dfs(row + rowOffset, col + colOffset, word, node)
-
-		# revert the marking
-		self.board[row][col] = word[-1]
-
-		# Tried all directions, and did not find any match
-		return
+		return found
 
 
 class TestSolution(unittest.TestCase):
