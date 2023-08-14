@@ -33,24 +33,22 @@ from typing import List
 
 class Solution:
 	def productExceptSelf(self, nums: List[int]) -> List[int]:
-		output = []
+		size = len(nums)
+		output = [1 for _ in range(size)]
+
 		tmp = 1
 
 		# pass 1 calculate product of all previous items
-		# as prefix[i] in output arr
-		for n in nums:
-			output.append(tmp)
-			tmp *= n
+		for i in range(size):
+			output[i] *= tmp
+			tmp *= nums[i]
 
 		tmp = 1
-		i = len(nums) - 1
 
 		# pass 2 calculate product of all next items
-		# as postfix[i] and * with prefix[i] as output[i]
-		for n in nums[::-1]:
+		for i in range(size - 1, -1, -1):
 			output[i] *= tmp
-			tmp *= n
-			i -= 1
+			tmp *= nums[i]
 
 		return output
 
