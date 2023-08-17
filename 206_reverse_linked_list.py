@@ -36,14 +36,14 @@ class Solution:
 		curr = head
 		prev = None
 		while curr:
-			# get next node
-			next_temp = curr.next
-			# make current node -> previous node
+			next = curr.next
+
+			# reverse pointer
 			curr.next = prev
-			# make previous node = current node
+
+			# move forward
 			prev = curr
-			# make current node = next node
-			curr = next_temp
+			curr = next
 
 		# return previous node
 		return prev
