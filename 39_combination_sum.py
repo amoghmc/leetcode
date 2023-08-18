@@ -46,13 +46,13 @@ from typing import List
 class Solution:
 	def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
 		results = []
-		candidates = sorted(candidates)
+		candidates.sort()
 
 		def dfs(remain, start, comb):
 			nonlocal candidates, results
 			if remain == 0:
 				# make a deep copy of the current combination
-				results.append(list(comb))
+				results.append(comb.copy())
 				return
 
 			for i in range(start, len(candidates)):

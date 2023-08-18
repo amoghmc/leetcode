@@ -37,17 +37,6 @@ from typing import List
 
 
 class Solution:
-	def maxArea_bf(self, height: List[int]) -> int:
-		max_area = 0
-		size = len(height)
-
-		for i in range(size):
-			for j in range(i + 1, size):
-				area = min(height[i], height[j]) * (j - i)
-				max_area = max(max_area, area)
-
-		return max_area
-
 	def maxArea(self, height: List[int]) -> int:
 		max_area = 0
 		i = 0
@@ -60,6 +49,17 @@ class Solution:
 				i += 1
 			else:
 				j -= 1
+
+		return max_area
+
+	def maxArea_bf(self, height: List[int]) -> int:
+		max_area = 0
+		size = len(height)
+
+		for i in range(size):
+			for j in range(i + 1, size):
+				area = min(height[i], height[j]) * (j - i)
+				max_area = max(max_area, area)
 
 		return max_area
 

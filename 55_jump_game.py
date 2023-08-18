@@ -44,29 +44,31 @@ class Solution:
 				goal = i
 		return goal == 0
 
-	def canJump_dp_top_down(self, nums: List[int]) -> bool:
-		memo = [Index.UNKNOWN for _ in range(len(nums))]
-		memo[len(nums) - 1] = Index.GOOD
-		return self.canJumpFromPositionDpTopDown(0, nums, memo)
+	def canJump_dp(self, nums: List[int]) -> bool:
+		last_pos = len(nums) - 1
+		cache = {last_pos: True}
 
-	def canJumpFromPositionDpTopDown(self, pos: int, nums: List[int], memo: List[int]) -> bool:
-		if memo[pos] != Index.UNKNOWN:
-			return memo[pos] == Index.GOOD
+		def dfs(pos: int) -> bool:
+			nonlocal nums, cache
+			if pos in cache:
+				return cache[pos]
 
-		max_jump = min(len(nums) - 1, pos + nums[pos])
-		for i in range(pos + 1, max_jump + 1):
-			if self.canJumpFromPositionDpTopDown(i, nums, memo):
-				memo[i] = Index.GOOD
-				return True
+			max_jump_index = min(last_pos, pos + nums[pos])
+			for i in range(pos + 1, max_jump_index + 1):
+				if dfs(i):
+					cache[i] = True
+					return True
 
-		memo[pos] = Index.BAD
-		return False
+			cache[pos] = False
+			return False
+
+		return dfs(0)
 
 
 class TestSolution(unittest.TestCase):
 	def tests(self):
 		sol_class = Solution()
-		my_functions = [sol_class.canJump_dp_top_down, sol_class.canJump]
+		my_functions = [sol_class.canJump_dp, sol_class.canJump]
 		for my_function in my_functions:
 			self.assertEqual(my_function([2, 3, 1, 1, 4]), True)
 			self.assertEqual(my_function([3, 2, 1, 0, 4]), False)
