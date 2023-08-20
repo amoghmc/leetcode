@@ -45,16 +45,18 @@ class Solution:
 		freq_dict = defaultdict(int)
 		freq_arr = [[] for _ in range(len(nums) + 1)]
 
-		for n in nums:
-			freq_dict[n] += 1
+		for i in nums:
+			freq_dict[i] += 1
 
-		for n in freq_dict:
-			freq_arr[freq_dict[n]].append(n)
+		for i in freq_dict:
+			freq_arr[freq_dict[i]].append(i)
 
 		result = []
-		for i in range(len(freq_arr) - 1, 0, -1):
-			for n in freq_arr[i]:
-				result.append(n)
+		# min freq is 1 as a num has to appear at least once
+		# max freq is len(nums) if all elements are same
+		for freq in range(len(freq_arr) - 1, 0, -1):
+			for i in freq_arr[freq]:
+				result.append(i)
 				if len(result) == k:
 					return result
 

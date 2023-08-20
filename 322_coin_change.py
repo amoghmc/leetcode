@@ -37,6 +37,29 @@ from typing import List
 
 
 class Solution:
+	def coinChange_DFS(self, coins: List[int], amount: int) -> int:
+		cache = {0: 0}
+		coins.sort()
+
+		def dfs(amount: int) -> int:
+			nonlocal coins, cache
+			if amount in cache:
+				return cache[amount]
+
+			ans = float('inf')
+			for i in coins:
+				if amount - i < 0:
+					break
+				ans = min(ans, 1 + dfs(amount - i))
+
+			cache[amount] = ans
+			return ans
+
+		ans = dfs(amount)
+		if ans == float('inf'):
+			return -1
+		return ans
+
 	def coinChange(self, coins: List[int], amount: int) -> int:
 		coin_change_for_i = [(amount + 1) for _ in range(amount + 1)]
 		coin_change_for_i[0] = 0
@@ -57,7 +80,7 @@ class Solution:
 class TestSolution(unittest.TestCase):
 	def tests(self):
 		sol_class = Solution()
-		my_functions = [sol_class.coinChange]
+		my_functions = [sol_class.coinChange, sol_class.coinChange_DFS]
 		for my_function in my_functions:
 			self.assertEqual(my_function([1, 2, 5], 11), 3)
 			self.assertEqual(my_function([2], 3), -1)

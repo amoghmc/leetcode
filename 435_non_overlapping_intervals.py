@@ -43,9 +43,9 @@ class Solution:
 		result = 0
 
 		for start, end in intervals[1:]:
-			# if previous interval starts after new one starts
+			# if previous interval ends after new one starts
 			# then they are overlapping intervals
-			if start < prev_end:
+			if prev_end > start:
 				result += 1
 				# getting the min end means we are basically
 				# removing the one with larger ending
