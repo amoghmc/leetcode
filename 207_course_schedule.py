@@ -47,6 +47,7 @@ class Solution(object):
 		:rtype: bool
 		"""
 
+		# hashmap of all prerequisites for a course
 		pre_req_dict = {i: [] for i in range(numCourses)}
 		for course, pre_req in prerequisites:
 			pre_req_dict[course].append(pre_req)
@@ -54,8 +55,10 @@ class Solution(object):
 		visited = set()
 
 		def dfs(course):
+			# cycle detected
 			if course in visited:
 				return False
+			# no prerequisites required
 			if len(pre_req_dict[course]) == 0:
 				return True
 
